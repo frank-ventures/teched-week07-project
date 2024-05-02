@@ -29,7 +29,7 @@ app.get("/", (request, response) => {
 app.get("/reviews", async (request, response) => {
   const result = await db.query(`
 SELECT
-  wkseven_reviews.title, wkseven_reviews.content ,
+wkseven_reviews.title,wkseven_reviews.id, wkseven_reviews.content ,
   wkseven_users.username AS name,
   wkseven_categories.name AS category,
   wkseven_relationships.type AS relationship
