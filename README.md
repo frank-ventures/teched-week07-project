@@ -2,7 +2,7 @@
 
 ## Project - Build a database driven React app
 
-**Link to project:** 
+**Link to project:**
 
 This week we extended our React knowledge, and brought back databases with Postgres.
 The task was to build a full-stack app, where a dynamic webpage could interact with data stored elsewhere.
@@ -35,37 +35,32 @@ I kept track of my ideas, planning and progress here: [Planning](https://frankjs
 
 ### Features!
 
-- 
+-
 
 ### What went well
 
 **Planning**
 
-- 
+- I used a combination of Figma and DrawSQL to get a visual on how the app would work, the functionality I wanted, and the layout of my database including the relationships between them
+- I worked on Supabase as a first step, to get my SQL statements correct; setting up my tables, inserting seed data, and creating select statements.
 
 **Functionality**
 
-- 
-
-**User Interface and Design**
-
-
-
+- **User Interface and Design**
 
 ### Sticky points and Difficulties
 
 **One**
 
-
 **Two**
-
 
 **Three**
 
-
 ### Future improvements
 
-- 
+-
 
 ### Resources
-One - [Link](Link)
+
+Figma - [My Figma](https://www.figma.com/file/bV6ZzcJXjXRlSJWiVmF3t0/Week-07-Project-Planning?type=whiteboard&node-id=2%3A84&t=J2XrAqaawgMOeb9j-1)
+DrawSQL - [My DrawSQL](https://drawsql.app/teams/personal-1367/diagrams/07-week-seven-project)
