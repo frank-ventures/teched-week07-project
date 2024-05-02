@@ -43,6 +43,9 @@ I kept track of my ideas, planning and progress here: [Planning](https://frankjs
 
 - I used a combination of Figma and DrawSQL to get a visual on how the app would work, the functionality I wanted, and the layout of my database including the relationships between them
 
+**Figma**
+![my figma plan](readme-images/week-07-figma-plan.png)
+**DrawSQL**
 ![my database plan](readme-images/week-07-database-plan.png)
 
 - I worked on Supabase as a first step, to get my SQL statements correct; setting up my tables, inserting seed data, and creating select statements.
