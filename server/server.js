@@ -23,6 +23,20 @@ app.use(express.json());
 app.get("/", (request, response) => {
   response.json("Root Route. Woot Woute!");
 });
+
+// --- --- --- ---
+// Get the lists of relationships and categories to display on the user form
+// --- --- --- ---
+app.get("/relationships-list", async (request, response) => {
+  const result = await db.query(`SELECT * FROM wkseven_relationships`);
+  response.json(result.rows);
+});
+
+app.get("/categories-list", async (request, response) => {
+  const result = await db.query(`SELECT * FROM wkseven_categories`);
+  response.json(result.rows);
+});
+
 // --- --- --- ---
 // Get ALL of the reviews. ALL of them. No sorting.
 // --- --- --- ---

@@ -1,3 +1,5 @@
+import { NavLink } from "react-router-dom";
+
 export function HomePage() {
   return (
     <>
@@ -8,6 +10,9 @@ export function HomePage() {
       </p>
       <p>Everybody</p>
       <p>Find out what the people have said</p>
+      <NavLink to="reviews/all" className="homepage-all-button">
+        See All Reviews
+      </NavLink>
     </>
   );
 }

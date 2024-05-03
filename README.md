@@ -69,4 +69,11 @@ I kept track of my ideas, planning and progress here: [Planning](https://frankjs
 ### Resources
 
 Figma - [My Figma](https://www.figma.com/file/bV6ZzcJXjXRlSJWiVmF3t0/Week-07-Project-Planning?type=whiteboard&node-id=2%3A84&t=J2XrAqaawgMOeb9j-1)
+
 DrawSQL - [My DrawSQL](https://drawsql.app/teams/personal-1367/diagrams/07-week-seven-project)
+
+React Router Docs for NavLinks - [React Router](https://reactrouter.com/en/main/components/nav-link)
+
+Tech Educators website for design ~~theft~~ inspiration - [TechEd](https://techeducators.co.uk/)
+
+Space Grotesk Google Font - [Font page](https://fonts.google.com/specimen/Space+Grotesk)

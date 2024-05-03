@@ -1,7 +1,68 @@
+/* --- --- --- --- --- --- --- ---  */
+/* General all-settings */
+/* --- --- --- --- --- --- --- ---  */
+/* Stolen! */
+:root {
+  --color-teched-midnight: 63 16 70;
+  --color-teched-sand: 247 239 227;
+  --color-teched-green: 43 216 114;
+  --color-teched-blue: 55 188 255;
+  --color-teched-pink: 255 82 146;
+  --color-teched-purple: 198 122 255;
+  --color-teched-yellow: 255 197 64;
+  --color-teched-orange: 250 118 65;
+}
+
+/* Thanks Google, and page inspector tool */
+.space-grotesk-teched {
+  font-family: "Space Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* --- --- --- --- --- --- --- ---  */
+/* Main Page Bodies */
+/* --- --- --- --- --- --- --- ---  */
 body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 
-  background-color: purple;
+  background-color: rgb(var(--color-teched-midnight));
+
+  color: white;
+  opacity: 0.9;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100vw;
+}
+
+/* --- --- --- --- --- --- --- ---  */
+/* For the reviews display */
+/* --- --- --- --- --- --- --- ---  */
+.reviews-all-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.reviews-individual {
+  width: 80%;
+}
+
+.homepage-all-button {
+  font-size: 2em;
+  padding: 1.5em;
+  margin: 1em;
+  border-radius: 2em;
+  text-decoration: none;
+
+  color: rgb(var(--color-teched-midnight));
+  background-color: rgb(var(--color-teched-green));
 }

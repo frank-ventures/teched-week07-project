@@ -18,12 +18,11 @@ export function App() {
   return (
     <>
       <Header />
-      <h2>something about Tech-stamonials (I&apos;m on app.jsx)</h2>
       <Routes>
         <Route path="/" element={<HomePage />}></Route>
         <Route path="/about" element={<AboutPage />}></Route>
         <Route path="/reviews" element={<ReviewsPage />}>
-          <Route path="" element={<p>Choose one</p>}></Route>
+          <Route path="" element={<p>Pick an option from above</p>}></Route>
           <Route path="all" element={<ReviewsAll />}></Route>
           <Route path="category" element={<p>Choose one</p>}></Route>
           <Route path="relationship" element={<p>Choose one</p>}></Route>
