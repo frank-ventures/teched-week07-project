@@ -1,0 +1,29 @@
+p a {
+  text-decoration: none;
+  color: rgb(var(--color-teched-orange));
+  padding: 0.2em;
+}
+
+p a:hover {
+  box-shadow: none;
+  color: rgb(var(--color-teched-green));
+
+  background-color: rgb(var(--color-teched-orange) / 0);
+}
+
+p a:active {
+  color: rgb(var(--color-teched-sand));
+}
+
+.about-info {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+
+  font-weight: 300;
+}
+
+.center {
+  text-align: center;
+}

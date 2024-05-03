@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
+import "./reviewspage.css";
 
 export function ReviewsPage() {
   return (
     <>
-      <h2>Reviews page</h2>
-      <p>Choose the Tech-stamonials you&apos;d like to see</p>
-      <nav>
+      <h2>Reviews</h2>
+      <p className="underline">
+        Choose the Tech-stamonials you&apos;d like to see
+      </p>
+      <nav className="flex nav-sort-reviews">
         <NavLink
           to=""
           className={({ isActive }) => [isActive ? "blank-button" : ""]}
@@ -34,7 +37,8 @@ export function ReviewsAll() {
     setLoading(true);
     const response = await fetch("http://localhost:8080/reviews");
     const data = await response.json();
-    setReviews(data);
+
+    setReviews(data.reverse());
     setLoading(false);
   }
   return (
@@ -46,12 +50,16 @@ export function ReviewsAll() {
       ) : (
         reviews.map((review) => {
           return (
-            <div key={review.id} className="reviews-individual">
-              <h2>{review.title}</h2>
-              <h3>{review.category}</h3>
-              <p>{review.name}</p>
-              <p>{review.relationship}</p>
-              <p>{review.content}</p>
+            <div key={review.id} className="grid reviews-individual">
+              <h2 className="grid review-title">{review.title}</h2>
+              <div className="grid review-user-trio">
+                <p className="grid review-user">{review.name}</p>
+                <p className="grid review-relationship">
+                  {review.relationship}
+                </p>
+                <p className="grid review-category">{review.category}</p>
+              </div>
+              <p className="grid review-content">{review.content}</p>
             </div>
           );
         })

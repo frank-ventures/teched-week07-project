@@ -1,0 +1,36 @@
+/* --- --- --- --- --- --- --- ---  */
+/* Homepage css */
+/* --- --- --- --- --- --- --- ---  */
+h1 {
+  font-size: 3em;
+  margin-bottom: 3em;
+}
+
+p {
+  font-weight: 300;
+}
+
+.home-info {
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.home-info hr {
+  margin-top: 6em;
+  width: 80%;
+}
+
+.homepage-all-button {
+  font-size: 2em;
+  font-weight: 400;
+
+  padding: 1em 2em;
+  margin: 1em;
+  border-radius: 1.5em;
+  text-decoration: none;
+
+  color: rgb(var(--color-teched-midnight));
+  background-color: rgb(var(--color-teched-green));
+}

@@ -44,27 +44,7 @@ body {
   height: 100vh;
 }
 
-/* --- --- --- --- --- --- --- ---  */
-/* For the reviews display */
-/* --- --- --- --- --- --- --- ---  */
-.reviews-all-wrapper {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.reviews-individual {
-  width: 80%;
-}
-
-.homepage-all-button {
-  font-size: 2em;
-  padding: 1.5em;
-  margin: 1em;
-  border-radius: 2em;
-  text-decoration: none;
-
-  color: rgb(var(--color-teched-midnight));
-  background-color: rgb(var(--color-teched-green));
+.underline {
+  text-decoration: underline;
+  text-underline-offset: 5px;
 }
