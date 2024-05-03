@@ -1,7 +1,7 @@
 // --- --- --- --- --- --- --- --- --- --- --- ---
 // Imports
 // --- --- --- --- --- --- --- --- --- --- --- ---
-import express from "express";
+import express, { response } from "express";
 import cors from "cors";
 // Import the database call from other function
 import { db } from "./databaseCall.js";
@@ -110,6 +110,54 @@ app.get("/reviews", async (request, response) => {
 // --- --- --- --- --- --- --- --- --- --- --- ---
 // POST Endpoints
 // --- --- --- --- --- --- --- --- --- --- --- ---
+app.post("/send-review", async (request, response) => {
+  try {
+    // Destructuring the request.body object to get the variables within:
+    const { username, relationship, title, category, content } = request.body;
+    console.log(request.body);
+
+    // First we need to check if the username exists:
+    let usernameId;
+    const usernameResult = await db.query(
+      `
+    SELECT id FROM wkseven_users WHERE username = $1`,
+      [username]
+    );
+    console.log("Result array length: ", usernameResult.rows.length);
+
+    // 'usernameResult' is an array, so we check the length of the array.
+    //  If it has a length greater than 0 then it means the user exists in the users table on the database
+    //  and we can use their ID:
+    if (usernameResult.rows.length > 0) {
+      usernameId = usernameResult.rows[0].id;
+      console.log("Their user ID is: ", usernameId);
+    } else {
+      // If the array length is 0, it means the user doesn't exist yet so we need to add them to the database!
+      const newUserResult = await db.query(
+        `INSERT INTO wkseven_users (username) VALUES ($1) RETURNING id`,
+        [username]
+      );
+      usernameId = newUserResult.rows[0].id;
+      console.log("Their user ID is: ", usernameId);
+    }
+
+    // Finally, we can enter the review into the database. Woop!
+    await db.query(
+      `
+      INSERT INTO wkseven_reviews (title, content, username_id, relationship_id, category_id)
+      VALUES ($1, $2, $3, $4, $5)
+    `,
+      [title, content, usernameId, relationship, category]
+    );
+
+    response.json({ success: true });
+  } catch (error) {
+    console.error("Error handling review submission:", error);
+    response
+      .status(500)
+      .json({ success: false, error: "Internal server error" });
+  }
+});
 
 // --- --- --- --- --- --- --- --- --- --- --- ---
 // Listen
