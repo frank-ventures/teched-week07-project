@@ -2,13 +2,14 @@ import { useState, useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import "./submitpage.css";
 
+import { fetchUrl } from "../App";
+
 export function SubmitPage() {
   // Variables to handle our data and form
   const [relationships, setRelationships] = useState([]);
   const [categories, setCategories] = useState([]);
   const [form, setForm] = useState([]);
   const [showForm, setShowForm] = useState("show-form");
-  const fetchUrl = "http://localhost:8080";
 
   //   These fetch the selectable categories and relationships from the database
   async function getRelationships() {
@@ -61,7 +62,6 @@ export function SubmitPage() {
           <div className="submit-page-info">
             <h2>Have you got an experience you&apos;d like to share?</h2>
             <p>Share it here. Keep it clean, respectable, but honest.</p>
-            <hr></hr>
           </div>
           <form onSubmit={handleFormSubmit} onChange={handleChange}>
             {/* --- --- --- --- */}
@@ -142,7 +142,7 @@ export function SubmitPage() {
               placeholder="My time with Tech Educators..."
               required
             />
-            <button>Send it through!</button>
+            <button className="form-button">Send it through!</button>
             {/* --- --- --- --- */}
             {/* End of form */}
           </form>

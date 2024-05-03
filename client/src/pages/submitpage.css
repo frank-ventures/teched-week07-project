@@ -1,7 +1,39 @@
 form {
   display: flex;
   flex-direction: column;
-  gap: 1em;
+
+  padding: 1em;
+  border-top: 1px solid rgb(var(--color-teched-sand) / 0.8);
+}
+
+label {
+  padding-left: 0.25em;
+  margin-top: 1em;
+  padding-bottom: 0.2em;
+}
+
+input,
+textarea,
+select {
+  border-radius: 0.25em;
+  border: none;
+  padding: 0.5em;
+}
+
+.form-button {
+  margin-top: 1em;
+  margin-left: 25%;
+  width: 50%;
+  border: none;
+  font-size: 1.1em;
+  cursor: pointer;
+
+  padding: 0.5em;
+  border-radius: 1.5em;
+  text-decoration: none;
+
+  color: rgb(var(--color-teched-midnight));
+  background-color: rgb(var(--color-teched-green));
 }
 
 .submit-page-info {
@@ -9,10 +41,6 @@ form {
   flex-direction: column;
   align-items: center;
   width: 100vw;
-}
-
-.submit-page-info hr {
-  width: 80%;
 }
 
 .submit-page-button {
@@ -32,12 +60,14 @@ form {
   cursor: pointer;
 }
 
-.submit-page-button:hover {
+.submit-page-button:hover,
+.form-button:hover {
   color: rgb(var(--color-teched-midnight));
   background-color: rgb(var(--color-teched-green) / 0.8);
   box-shadow: 0px 0px 5px rgb(var(--color-teched-green));
 }
-.submit-page-button:active {
+.submit-page-button:active,
+.form-button:active {
   color: rgb(var(--color-teched-midnight));
   background-color: rgb(var(--color-teched-sand) / 0.8);
   box-shadow: 0px 0px 5px rgb(var(--color-teched-sand));

@@ -8,7 +8,11 @@ import { Routes, Route } from "react-router-dom";
 import { Header } from "./components/Header";
 import { HomePage } from "./pages/HomePage";
 import { AboutPage } from "./pages/AboutPage";
-import { ReviewsAll, ReviewsPage } from "./pages/ReviewsPage";
+import {
+  ReviewsAll,
+  ReviewsByCategory,
+  ReviewsPage
+} from "./pages/ReviewsPage";
 import { SubmitPage } from "./pages/SubmitPage";
 
 // --- --- --- --- --- --- --- --- --- --- --- ---
@@ -24,7 +28,7 @@ export function App() {
         <Route path="/reviews" element={<ReviewsPage />}>
           <Route path="" element={<p>Pick an option from above</p>}></Route>
           <Route path="all" element={<ReviewsAll />}></Route>
-          <Route path="category" element={<p>Choose one</p>}></Route>
+          <Route path="category" element={<ReviewsByCategory />}></Route>
           <Route path="relationship" element={<p>Choose one</p>}></Route>
         </Route>
         <Route path="/submit" element={<SubmitPage />}></Route>
@@ -32,3 +36,4 @@ export function App() {
     </>
   );
 }
+export const fetchUrl = "https://teched-week07-project.onrender.com";

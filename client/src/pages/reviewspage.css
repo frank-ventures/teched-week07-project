@@ -11,11 +11,6 @@
 }
 
 .nav-sort-reviews {
-  position: fixed;
-  bottom: 2em;
-  left: 50%;
-  transform: translate(-50%);
-
   align-items: flex-start;
   justify-content: flex-start;
 

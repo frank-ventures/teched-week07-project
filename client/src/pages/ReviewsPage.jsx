@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
 import { NavLink, Outlet } from "react-router-dom";
 import "./reviewspage.css";
+import { fetchUrl } from "../App";
 
 export function ReviewsPage() {
   return (
     <>
       <h2>Reviews</h2>
-      <p className="underline">
-        Choose the Tech-stamonials you&apos;d like to see
-      </p>
+      <p>Choose the Tech-stamonials you&apos;d like to see</p>
       <nav className="flex nav-sort-reviews">
         <NavLink
           to=""
@@ -25,22 +24,7 @@ export function ReviewsPage() {
   );
 }
 
-export function ReviewsAll() {
-  const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    getAllReviews();
-  }, []);
-
-  async function getAllReviews() {
-    setLoading(true);
-    const response = await fetch("http://localhost:8080/reviews");
-    const data = await response.json();
-
-    setReviews(data.reverse());
-    setLoading(false);
-  }
+export function ReviewsDisplay({ loading, reviews }) {
   return (
     <div className="reviews-all-wrapper">
       {loading ? (
@@ -65,5 +49,31 @@ export function ReviewsAll() {
         })
       )}
     </div>
+  );
+}
+
+export function ReviewsAll() {
+  const [reviews, setReviews] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getAllReviews();
+  }, []);
+
+  async function getAllReviews() {
+    setLoading(true);
+    const response = await fetch(`${fetchUrl}/reviews`);
+    const data = await response.json();
+    setReviews(data.reverse());
+    setLoading(false);
+  }
+  return <ReviewsDisplay loading={loading} reviews={reviews} />;
+}
+
+export function ReviewsByCategory() {
+  return (
+    <>
+      <h3>Pick a category</h3>
+    </>
   );
 }

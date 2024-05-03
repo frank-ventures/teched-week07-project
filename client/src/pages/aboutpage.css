@@ -24,6 +24,10 @@ p a:active {
   font-weight: 300;
 }
 
+h2 {
+  text-align: center;
+}
+
 .center {
   text-align: center;
 }
