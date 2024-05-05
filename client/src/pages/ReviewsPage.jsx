@@ -8,7 +8,7 @@ import { fetchUrl } from "../App";
 // --- --- --- --- --- --- --- --- --- --- --- ---
 // Context time
 // --- --- --- --- --- --- --- --- --- --- --- ---
-import { ReviewsProvider } from "../Context.jsx";
+// import { ReviewsProvider } from "../Context.jsx";
 
 // --- --- --- --- --- --- --- --- --- --- --- ---
 // Main Review Page export
@@ -16,23 +16,23 @@ import { ReviewsProvider } from "../Context.jsx";
 export function ReviewsPage() {
   return (
     <>
-      <ReviewsProvider>
-        <h2>Reviews</h2>
-        <p>Choose the Tech-stamonials you&apos;d like to see</p>
-        <nav className="flex nav-sort-reviews">
-          <NavLink
-            to=""
-            className={({ isActive }) => [isActive ? "blank-button" : ""]}
-          >
-            Clear sort
-          </NavLink>
-          <NavLink to="all">All Reviews</NavLink>
-          <NavLink to="category">By Category</NavLink>
-          <NavLink to="relationship">By Relationship</NavLink>
-          <NavLink to="user">By User</NavLink>
-        </nav>
-        <Outlet />
-      </ReviewsProvider>
+      {/* <ReviewsProvider> */}
+      <h2>Reviews</h2>
+      <p>Choose the Tech-stamonials you&apos;d like to see</p>
+      <nav className="flex nav-sort-reviews">
+        <NavLink
+          to=""
+          className={({ isActive }) => [isActive ? "blank-button" : ""]}
+        >
+          Clear sort
+        </NavLink>
+        <NavLink to="all">All Reviews</NavLink>
+        <NavLink to="category">By Category</NavLink>
+        <NavLink to="relationship">By Relationship</NavLink>
+        <NavLink to="user">By User</NavLink>
+      </nav>
+      <Outlet />
+      {/* </ReviewsProvider> */}
     </>
   );
 }
