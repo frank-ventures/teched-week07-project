@@ -4,6 +4,7 @@
 h1 {
   font-size: 3em;
   margin-bottom: 3em;
+  padding-left: 1em;
 }
 
 p {
@@ -35,17 +36,17 @@ p {
   background-color: rgb(var(--color-teched-green));
 }
 
-@media (max-width:400px) {
-h1 {
-  font-size: 1.75em;
-  width: 90vw;
-  text-align: center;
-  margin-bottom: 1em;
+@media (max-width: 400px) {
+  h1 {
+    font-size: 1.75em;
+    width: 90vw;
+    text-align: center;
+    margin-bottom: 1em;
+  }
+  .home-info hr {
+    margin-top: 1em;
+  }
+  .home-info {
+    width: 90vw;
+  }
 }
-.home-info hr{
-  margin-top: 1em;
-}
-.home-info {
-  width:90vw
-}
-})
