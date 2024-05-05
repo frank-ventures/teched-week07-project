@@ -8,7 +8,7 @@ import { fetchUrl } from "../App";
 // --- --- --- --- --- --- --- --- --- --- --- ---
 // Context time
 // --- --- --- --- --- --- --- --- --- --- --- ---
-import { ReviewsProvider, useRev } from "../Context.jsx";
+import { ReviewsProvider } from "../Context.jsx";
 
 // --- --- --- --- --- --- --- --- --- --- --- ---
 // Main Review Page export
