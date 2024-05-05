@@ -18,18 +18,30 @@ export function ReviewsPage() {
     <>
       <ReviewsProvider>
         <h2>Reviews</h2>
-        <p>Choose the Tech-stamonials you&apos;d like to see</p>
+        <p className="please-choose">
+          Choose the Tech-stamonials you&apos;d like to see
+        </p>
         <nav className="flex nav-sort-reviews">
           <NavLink
             to=""
-            className={({ isActive }) => [isActive ? "blank-button" : ""]}
+            className={({ isActive }) => [
+              isActive ? "flex blank-button" : "flex"
+            ]}
           >
             Clear sort
           </NavLink>
-          <NavLink to="all">All Reviews</NavLink>
-          <NavLink to="category">By Category</NavLink>
-          <NavLink to="relationship">By Relationship</NavLink>
-          <NavLink to="user">By User</NavLink>
+          <NavLink className="flex" to="all">
+            All Reviews
+          </NavLink>
+          <NavLink className="flex" to="category">
+            By Category
+          </NavLink>
+          <NavLink className="flex" to="relationship">
+            By Relationship
+          </NavLink>
+          <NavLink className="flex" to="user">
+            By User
+          </NavLink>
         </nav>
         <Outlet />
       </ReviewsProvider>

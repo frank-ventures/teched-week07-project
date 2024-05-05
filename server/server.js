@@ -103,7 +103,7 @@ app.get("/reviews", async (request, response) => {
     // --- --- --- ---
     try {
       // First let's append the correct SQL "WHERE" clause:
-      sqlQuery += `  WHERE wkseven_users.username LIKE ($1)`;
+      sqlQuery += `  WHERE wkseven_users.username ILIKE ($1)`;
       console.log("user is ", user);
       // And try to get that data
       const result = await db.query(sqlQuery, [`%${user}%`]);
