@@ -1,3 +1,6 @@
+hr {
+  width: 90%;
+}
 form {
   display: flex;
   flex-direction: column;
@@ -71,4 +74,17 @@ select {
   color: rgb(var(--color-teched-midnight));
   background-color: rgb(var(--color-teched-sand) / 0.8);
   box-shadow: 0px 0px 5px rgb(var(--color-teched-sand));
+}
+
+@media (max-width: 400px) {
+  .submit-page-info {
+    width: 95vw;
+  }
+  form {
+    width: 95vw;
+  }
+  .success-check-out {
+    text-align: center;
+    width: 90vw;
+  }
 }

@@ -166,7 +166,9 @@ export function SubmitPage() {
             <p>Woohoo! We got it!</p>
             <hr></hr>
           </div>
-          <p>Check out the Reviews page or write another one.</p>
+          <p className="success-check-out">
+            Check out the Reviews page or write another one.
+          </p>
           <NavLink to="../reviews/all" className="submit-page-button">
             See All Reviews
           </NavLink>

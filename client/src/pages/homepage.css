@@ -34,3 +34,18 @@ p {
   color: rgb(var(--color-teched-midnight));
   background-color: rgb(var(--color-teched-green));
 }
+
+@media (max-width:400px) {
+h1 {
+  font-size: 1.75em;
+  width: 90vw;
+  text-align: center;
+  margin-bottom: 1em;
+}
+.home-info hr{
+  margin-top: 1em;
+}
+.home-info {
+  width:90vw
+}
+})

@@ -8,11 +8,19 @@ export function Header() {
         <img src="/assets/tech-ed-full-banner.png"></img>
       </a>
 
-      <nav>
-        <NavLink to="/">Home</NavLink>
-        <NavLink to="/about">About This App</NavLink>
-        <NavLink to="/reviews">Reviews</NavLink>
-        <NavLink to="/submit">Tell us your story</NavLink>
+      <nav className="flex">
+        <NavLink className="flex" to="/">
+          Home
+        </NavLink>
+        <NavLink className="flex" to="/about">
+          About This App
+        </NavLink>
+        <NavLink className="flex" to="/reviews">
+          Reviews
+        </NavLink>
+        <NavLink className="flex" to="/submit">
+          Tell us your story
+        </NavLink>
       </nav>
     </header>
   );

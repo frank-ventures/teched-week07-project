@@ -14,7 +14,7 @@
   align-items: flex-start;
   justify-content: flex-start;
 
-  border: 1px solid white;
+  border: 1px solid rgba(255, 255, 255, 0.25);
   padding: 0.5em;
 
   background-color: rgb(var(--color-teched-midnight));
@@ -93,4 +93,23 @@
   font-size: 1.1em;
   text-shadow: 1px 1px 1px black;
   padding-left: 5%;
+}
+
+@media (max-width: 400px) {
+  .nav-sort-reviews {
+    flex-direction: column;
+    align-items: center;
+    border: ;
+  }
+  .review-user-trio {
+    font-size: 0.75em;
+    justify-content: center;
+    align-items: center;
+  }
+  .review-content {
+    border-top: 1px solid rgba(255, 255, 255, 0.5);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+    grid-auto-rows: minmax(1em, 4.5em);
+    overflow: scroll;
+  }
 }
