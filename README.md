@@ -2,7 +2,7 @@
 
 ## Project - Build a database driven React app
 
-**Link to project:**
+**Link to project:** [Vercel link](https://tech-ed-reviews.vercel.app/)
 
 This week we extended our React knowledge, and brought back databases with Postgres.
 The task was to build a full-stack app, where a dynamic webpage could interact with data stored elsewhere.
@@ -35,7 +35,12 @@ I kept track of my ideas, planning and progress here: [Planning](https://frankjs
 
 ### Features!
 
--
+- Database hosted on Supabase.
+- Server built with Express and Postgres, hosted on Render.
+- Client built with React.
+- Styling ripped straight from the [Tech Educators website](https://techeducators.co.uk/).
+- A form for the user to add reviews to the database.
+- Sortable reviews.
 
 ### What went well
 
@@ -52,19 +57,62 @@ I kept track of my ideas, planning and progress here: [Planning](https://frankjs
 
 **Functionality**
 
-- **User Interface and Design**
+As usual it was important to me to get a functional version of the website first before properly styling it. Small bits of CSS were useful to be able to better see parts of the pages, IE spacing out the reviews and the form.
+
+Once I had the data from the database displaying on screen successfully, I moved on to implementing the form.
+
+I found out that to POST a new review to the database, I first had to run an IF statement which checked if the username existed on the users table. If it did, it selected that user ID and if not, it created a new entry. The server would then move on to appending the new review to the database.
+
+I like the simplicity of the form, and was satisfied with how it uses the data it's given, in particular
+
+- Displaying drop-downs for categories and relationships
+- Using ID's to match things up once in the database.
+
+I enjoyed how the "Submitting..." and "Success!" screens work after a form submission.
+
+**User Interface and Design**
+
+While comfortable with flexbox, I haven't used grid too much in my projects so far. I decided now was the time, and utilised it for the inner display of each individual review.
+
+Using the Tech Educators website as an existing theme really reduced the time it took for the website to have a style, which meant I could focus on the more important things.
 
 ### Sticky points and Difficulties
 
-**One**
+**Form submission**
 
-**Two**
+Because I was using information from different tables in my form, I had to slow down and think about what data I needed and its flow after submission. Getting the correct IF statements took a little time but worked great once implemented.
 
-**Three**
+**Grid grid grid**
+
+As I haven't worked with grid as much as flexbox, I took more time figuring out which properties I needed to lay things out as I wanted them. Trial and error was the key here, as normal!
+
+The more useful properties that unlocked what I wanted were:
+
+- `grid-row`
+- `grid-column`, with `span`
+- `grid-auto-columns` with `minmax()`
+
+**The simplest solution is often the best**
+
+I pulled myself out of a rabbit hole early on, when I started to use SVG downloaders to grab the header icon and logo from the TechEd website.
+
+I refocused on what was important, and quite simply used a png image of the whole thing instead, allowing me more time for the functionality and style of the rest of the website.
+
+SVGs can wait!
+
+**I get by with a little help from my friends**
+
+Over the weekend, some group troubleshooting with Precious and Darren really helped me get to a working solution to sort the Reviews by Category. (Thanks guys!)
+
+Once I had that part working, I was able to modify the server-side code with some 'if' statements, which changed the appended "WHERE" clause depending on the type of parameter selected.
+
+This allowed me to sort by Category, Relationship, or User.
+
+I got the User sort working with a search box, and a 'wild card' search on the server side.
 
 ### Future improvements
 
--
+- Implementing some kind of 'user login' or authentication would be nice, so that the system of attaching user names to a review can be monitored (otherwise, we could all pretend to be the CEO!).
 
 ### Resources
 

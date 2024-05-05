@@ -11,6 +11,8 @@ import { AboutPage } from "./pages/AboutPage";
 import {
   ReviewsAll,
   ReviewsByCategory,
+  ReviewsByRelationship,
+  ReviewsByUser,
   ReviewsPage
 } from "./pages/ReviewsPage";
 import { SubmitPage } from "./pages/SubmitPage";
@@ -29,11 +31,16 @@ export function App() {
           <Route path="" element={<p>Pick an option from above</p>}></Route>
           <Route path="all" element={<ReviewsAll />}></Route>
           <Route path="category" element={<ReviewsByCategory />}></Route>
-          <Route path="relationship" element={<p>Choose one</p>}></Route>
+          <Route
+            path="relationship"
+            element={<ReviewsByRelationship />}
+          ></Route>
+          <Route path="user" element={<ReviewsByUser />}></Route>
         </Route>
         <Route path="/submit" element={<SubmitPage />}></Route>
       </Routes>
     </>
   );
 }
-export const fetchUrl = "https://teched-week07-project.onrender.com";
+// export const fetchUrl = "https://teched-week07-project.onrender.com";
+export const fetchUrl = "http://localhost:8080";

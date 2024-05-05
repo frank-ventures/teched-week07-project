@@ -17,6 +17,7 @@ export function SubmitPage() {
     const data = await response.json();
     setRelationships(data);
   }
+
   async function getCategories() {
     const response = await fetch(`${fetchUrl}/categories-list`);
     const data = await response.json();
@@ -78,7 +79,9 @@ export function SubmitPage() {
             {/* --- --- --- --- */}
             {/* Users relationship to the company */}
             {/* --- --- --- --- */}
-            <label htmlFor="username">Relationship to Tech Educators: </label>
+            <label htmlFor="username">
+              Your relationship to Tech Educators:{" "}
+            </label>
             <select
               type="select"
               name="relationship"

@@ -1,7 +1,7 @@
 // --- --- --- --- --- --- --- --- --- --- --- ---
 // Imports
 // --- --- --- --- --- --- --- --- --- --- --- ---
-import express, { response } from "express";
+import express, { query, response } from "express";
 import cors from "cors";
 // Import the database call from other function
 import { db } from "./databaseCall.js";
@@ -25,7 +25,7 @@ app.get("/", (request, response) => {
 });
 
 // --- --- --- ---
-// Get the lists of relationships and categories to display on the user form
+// Get the lists of relationships and categories to display on the user form and for review searching:
 // --- --- --- ---
 app.get("/relationships-list", async (request, response) => {
   const result = await db.query(`SELECT * FROM wkseven_relationships`);
@@ -38,47 +38,21 @@ app.get("/categories-list", async (request, response) => {
 });
 
 // --- --- --- ---
-// Get ALL of the reviews. ALL of them. No sorting.
+// Get ALL of the reviews. ALL of them.
 // --- --- --- ---
 app.get("/reviews", async (request, response) => {
-  const result = await db.query(`
-SELECT
-wkseven_reviews.title,wkseven_reviews.id, wkseven_reviews.content ,
-  wkseven_users.username AS name,
-  wkseven_categories.name AS category,
-  wkseven_relationships.type AS relationship
-FROM  wkseven_reviews
-  JOIN wkseven_users ON wkseven_reviews.username_id = wkseven_users.id
-  JOIN wkseven_categories ON wkseven_reviews.category_id = wkseven_categories.id
-  JOIN wkseven_relationships ON wkseven_reviews.relationship_id = wkseven_relationships.id
-`);
-  response.json(result.rows);
-});
-// --- --- --- ---
-// Get the reviews sorted by User
-// --- --- --- ---
-app.get("/reviews-by-user", async (request, response) => {
-  const result = await db.query(`
-    SELECT
-    wkseven_reviews.title, wkseven_reviews.content ,
-    wkseven_users.username AS name,
-    wkseven_categories.name AS category,
-    wkseven_relationships.type AS relationship
-  FROM  wkseven_reviews
-    JOIN wkseven_users ON wkseven_reviews.username_id = wkseven_users.id
-    JOIN wkseven_categories ON wkseven_reviews.category_id = wkseven_categories.id
-    JOIN wkseven_relationships ON wkseven_reviews.relationship_id = wkseven_relationships.id
-  WHERE wkseven_users.username = 'Frankie'
-  `);
-  response.json(result.rows);
-});
-// --- --- --- ---
-// Get the reviews sorted by Relationship to the company
-// --- --- --- ---
-app.get("/reviews", async (request, response) => {
-  const result = await db.query(`
+  // Lets check what our params/queries are:
+  console.log("Current query is: ", request.query);
+
+  // Lets set some variables to use:
+  const category = request.query.category;
+  const relationship = request.query.relationship;
+  const user = request.query.user;
+
+  // Lets define a standard SQL query which gets ALL the reviews:
+  let sqlQuery = `
   SELECT
-    wkseven_reviews.title, wkseven_reviews.content ,
+  wkseven_reviews.title,wkseven_reviews.id, wkseven_reviews.content ,
     wkseven_users.username AS name,
     wkseven_categories.name AS category,
     wkseven_relationships.type AS relationship
@@ -86,25 +60,73 @@ app.get("/reviews", async (request, response) => {
     JOIN wkseven_users ON wkseven_reviews.username_id = wkseven_users.id
     JOIN wkseven_categories ON wkseven_reviews.category_id = wkseven_categories.id
     JOIN wkseven_relationships ON wkseven_reviews.relationship_id = wkseven_relationships.id
-  `);
-  response.json(result.rows);
-});
-// --- --- --- ---
-// Get the reviews sorted by Category
-// --- --- --- ---
-app.get("/reviews", async (request, response) => {
-  const result = await db.query(`
-  SELECT
-    wkseven_reviews.title, wkseven_reviews.content ,
-    wkseven_users.username AS name,
-    wkseven_categories.name AS category,
-    wkseven_relationships.type AS relationship
-  FROM  wkseven_reviews
-    JOIN wkseven_users ON wkseven_reviews.username_id = wkseven_users.id
-    JOIN wkseven_categories ON wkseven_reviews.category_id = wkseven_categories.id
-    JOIN wkseven_relationships ON wkseven_reviews.relationship_id = wkseven_relationships.id
-  `);
-  response.json(result.rows);
+  `;
+
+  // if a search query query exists, let's do some stuff:
+  if (category != null) {
+    // --- --- --- ---
+    // Get the reviews sorted by Category
+    // --- --- --- ---
+    try {
+      // First let's append the correct SQL "WHERE" clause:
+      sqlQuery += ` WHERE wkseven_categories.id = ($1)`;
+      console.log("category is ", category);
+      // And try to get that data
+      const result = await db.query(sqlQuery, [category]);
+      response.json(result.rows);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      response
+        .status(500)
+        .json({ success: false, error: "Internal Server Error" });
+    }
+  } else if (relationship != null) {
+    // --- --- --- ---
+    // Get the reviews sorted by Relationship to the company
+    // --- --- --- ---
+    try {
+      // First let's append the correct SQL "WHERE" clause:
+      sqlQuery += ` WHERE wkseven_relationships.id = ($1)`;
+      console.log("relationship is ", relationship);
+      // And try to get that data
+      const result = await db.query(sqlQuery, [relationship]);
+      response.json(result.rows);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      response
+        .status(500)
+        .json({ success: false, error: "Internal Server Error" });
+    }
+  } else if (user != null) {
+    // --- --- --- ---
+    // Get the reviews sorted by User
+    // --- --- --- ---
+    try {
+      // First let's append the correct SQL "WHERE" clause:
+      sqlQuery += `  WHERE wkseven_users.username LIKE ($1)`;
+      console.log("user is ", user);
+      // And try to get that data
+      const result = await db.query(sqlQuery, [`%${user}%`]);
+      response.json(result.rows);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      response
+        .status(500)
+        .json({ success: false, error: "Internal Server Error" });
+    }
+  } else {
+    // If there are no queries/parameters, just get ALL the reviews:
+    try {
+      console.log(category);
+      const result = await db.query(sqlQuery);
+      response.json(result.rows);
+    } catch (error) {
+      console.error("Error fetching posts:", error);
+      response
+        .status(500)
+        .json({ success: false, error: "Internal Server Error" });
+    }
+  }
 });
 
 // --- --- --- --- --- --- --- --- --- --- --- ---

@@ -4,7 +4,9 @@ import "./header.css";
 export function Header() {
   return (
     <header>
-      <img src="/assets/tech-ed-full-banner.png"></img>
+      <a href="https://techeducators.co.uk/">
+        <img src="/assets/tech-ed-full-banner.png"></img>
+      </a>
 
       <nav>
         <NavLink to="/">Home</NavLink>
