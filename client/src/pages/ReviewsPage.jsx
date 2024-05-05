@@ -1,30 +1,45 @@
-import { useState, useEffect } from "react";
+// --- --- --- --- --- --- --- --- --- --- --- ---
+// Import some useful things
+// --- --- --- --- --- --- --- --- --- --- --- ---
+import { useState, useEffect, useContext } from "react";
 import { NavLink, Outlet, useSearchParams } from "react-router-dom";
 import "./reviewspage.css";
 import { fetchUrl } from "../App";
+// --- --- --- --- --- --- --- --- --- --- --- ---
+// Context time
+// --- --- --- --- --- --- --- --- --- --- --- ---
+import { ReviewsProvider } from "../Context.jsx";
 
+// --- --- --- --- --- --- --- --- --- --- --- ---
+// Main Review Page export
+// --- --- --- --- --- --- --- --- --- --- --- ---
 export function ReviewsPage() {
   return (
     <>
-      <h2>Reviews</h2>
-      <p>Choose the Tech-stamonials you&apos;d like to see</p>
-      <nav className="flex nav-sort-reviews">
-        <NavLink
-          to=""
-          className={({ isActive }) => [isActive ? "blank-button" : ""]}
-        >
-          Clear sort
-        </NavLink>
-        <NavLink to="all">All Reviews</NavLink>
-        <NavLink to="category">By Category</NavLink>
-        <NavLink to="relationship">By Relationship</NavLink>
-        <NavLink to="user">By User</NavLink>
-      </nav>
-      <Outlet />
+      <ReviewsProvider>
+        <h2>Reviews</h2>
+        <p>Choose the Tech-stamonials you&apos;d like to see</p>
+        <nav className="flex nav-sort-reviews">
+          <NavLink
+            to=""
+            className={({ isActive }) => [isActive ? "blank-button" : ""]}
+          >
+            Clear sort
+          </NavLink>
+          <NavLink to="all">All Reviews</NavLink>
+          <NavLink to="category">By Category</NavLink>
+          <NavLink to="relationship">By Relationship</NavLink>
+          <NavLink to="user">By User</NavLink>
+        </nav>
+        <Outlet />
+      </ReviewsProvider>
     </>
   );
 }
 
+// --- --- --- --- --- --- --- --- --- --- --- ---
+// Re-usable component to display the reviews returned from the database
+// --- --- --- --- --- --- --- --- --- --- --- ---
 export function ReviewsDisplay({ loading, reviews }) {
   return (
     <div className="reviews-all-wrapper">
@@ -53,6 +68,9 @@ export function ReviewsDisplay({ loading, reviews }) {
   );
 }
 
+// --- --- --- --- --- --- --- --- --- --- --- ---
+// Component which gets all Reviews, no sort.
+// --- --- --- --- --- --- --- --- --- --- --- ---
 export function ReviewsAll() {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -71,6 +89,9 @@ export function ReviewsAll() {
   return <ReviewsDisplay loading={loading} reviews={reviews} />;
 }
 
+// --- --- --- --- --- --- --- --- --- --- --- ---
+// Component which gets Reviews by Category
+// --- --- --- --- --- --- --- --- --- --- --- ---
 export function ReviewsByCategory() {
   const [categories, setCategories] = useState([]);
   const [option, setOption] = useState([]);
@@ -151,6 +172,9 @@ export function ReviewsByCategory() {
   );
 }
 
+// --- --- --- --- --- --- --- --- --- --- --- ---
+// Component which gets Reviews by Relationship
+// --- --- --- --- --- --- --- --- --- --- --- ---
 export function ReviewsByRelationship() {
   const [relationship, setRelationship] = useState([]);
   const [option, setOption] = useState([]);
@@ -229,6 +253,9 @@ export function ReviewsByRelationship() {
   );
 }
 
+// --- --- --- --- --- --- --- --- --- --- --- ---
+// Component which gets Reviews by User.
+// --- --- --- --- --- --- --- --- --- --- --- ---
 export function ReviewsByUser() {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
