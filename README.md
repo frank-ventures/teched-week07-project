@@ -41,6 +41,8 @@ I kept track of my ideas, planning and progress here: [Planning](https://frankjs
 - Styling ripped straight from the [Tech Educators website](https://techeducators.co.uk/).
 - A form for the user to add reviews to the database.
 - Sortable reviews.
+- Searchable reviews.
+- Reacts `useContext` implemented.
 
 ### What went well
 
@@ -100,6 +102,8 @@ I refocused on what was important, and quite simply used a png image of the whol
 
 SVGs can wait!
 
+On top of that, I copied Tech Educators styling so that I could focus my attention and learning on the functioning of the website, as opposed to rabbit hole-ing CSS and styles.
+
 **I get by with a little help from my friends**
 
 Over the weekend, some group troubleshooting with Precious and Darren really helped me get to a working solution to sort the Reviews by Category. (Thanks guys!)
@@ -110,9 +114,42 @@ This allowed me to sort by Category, Relationship, or User.
 
 I got the User sort working with a search box, and a 'wild card' search on the server side.
 
+**Context**
+
+I spent many hours implementing useContext.
+
+I almost don't want to talk about it.....
+
+One of the easier parts was lifting the definitions of `useState` out of the ReviewsPage components and into a separate Context file. I could wrap my head around that, and also the importing of the 'contexts' I needed.
+
+I _really_ had a big wrestling match with trying to get the right variables and states to update at the correct times. **Lots** of console.logs to expose the flow of data, and trial & error fixes were needed to get something that works fairly well.
+
+**Give me a trim!**
+
+One of the last small things I needed to fix, after implementing useContext, was a behaviour on the "user search" page where _all_ of the Reviews were returned if the search box was empty.
+
+I prompted [Cheryl Gene Patsy Thompson](https://chatgpt.com/) asking if there was a way to avoid returning all the reviews on an empty search box.
+
+It directed me to the `.trim()` method, and advised to use it with an IF statement before the main code ran, resulting in this compact snippet:
+
+```javascript
+if (!user.trim()) {
+  response.json([]);
+  return;
+}
+```
+
+Armed with my new trimming knowledge, I used the method further on in the code block to tidy up user search queries:
+
+`const result = await db.query(sqlQuery, [`%${user.trim()}%`]);`
+
 ### Future improvements
 
 - Implementing some kind of 'user login' or authentication would be nice, so that the system of attaching user names to a review can be monitored (otherwise, we could all pretend to be the CEO!).
+
+- I'm still not fully comfortable with useContext! I'm sure there's a nicer way to achieve what I set out to do, with resetting the "Sort By" dynamic route pages.
+
+- Styling tweaks, especially for the display of reviews.
 
 ### Resources
 
@@ -125,3 +162,5 @@ React Router Docs for NavLinks - [React Router](https://reactrouter.com/en/main/
 Tech Educators website for design ~~theft~~ inspiration - [TechEd](https://techeducators.co.uk/)
 
 Space Grotesk Google Font - [Font page](https://fonts.google.com/specimen/Space+Grotesk)
+
+Javascript `.trim()` methiod - [W3 Schools](https://www.w3schools.com/jsref/jsref_trim_string.asp)
