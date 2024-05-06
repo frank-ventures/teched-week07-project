@@ -110,6 +110,31 @@ This allowed me to sort by Category, Relationship, or User.
 
 I got the User sort working with a search box, and a 'wild card' search on the server side.
 
+**Context**
+
+I spent many hours implementing useContext.
+
+I almost don't want to talk about it.
+
+**Give me a trim!**
+
+One of the last small things I needed to fix, after implementing useContext, was a behaviour on the "user search" page where _all_ of the Reviews were returned if the search box was empty.
+
+I prompted [Cheryl Gene Patsy Thompson](https://chatgpt.com/) asking if there was a way to avoid returning all the reviews on an empty search box.
+
+It directed me to the `.trim()` method, and advised to use it with an IF statement before the main code ran, resulting in this compact snippet:
+
+```javascript
+if (!user.trim()) {
+  response.json([]);
+  return;
+}
+```
+
+Armed with my new trimming knowledge, I used the method further on in the code block to tidy up user search queries:
+
+`const result = await db.query(sqlQuery, [`%${user.trim()}%`]);`
+
 ### Future improvements
 
 - Implementing some kind of 'user login' or authentication would be nice, so that the system of attaching user names to a review can be monitored (otherwise, we could all pretend to be the CEO!).
@@ -125,3 +150,5 @@ React Router Docs for NavLinks - [React Router](https://reactrouter.com/en/main/
 Tech Educators website for design ~~theft~~ inspiration - [TechEd](https://techeducators.co.uk/)
 
 Space Grotesk Google Font - [Font page](https://fonts.google.com/specimen/Space+Grotesk)
+
+Javascript `.trim()` methiod - [W3 Schools](https://www.w3schools.com/jsref/jsref_trim_string.asp)

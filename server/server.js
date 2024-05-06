@@ -43,6 +43,8 @@ app.get("/categories-list", async (request, response) => {
 app.get("/reviews", async (request, response) => {
   // Lets check what our params/queries are:
   console.log("Current query is: ", request.query);
+  console.log("Current param is: ", request.params);
+  console.log("Current request body is ", request.body);
 
   // Lets set some variables to use:
   const category = request.query.category;
@@ -102,11 +104,16 @@ app.get("/reviews", async (request, response) => {
     // Get the reviews sorted by User
     // --- --- --- ---
     try {
+      // This spicy little biscuit came from asking GPT "how I could make sure that if the search box was empty, with no entered characters, then return no results?"":
+      if (!user.trim()) {
+        response.json([]);
+        return;
+      }
       // First let's append the correct SQL "WHERE" clause:
       sqlQuery += `  WHERE wkseven_users.username ILIKE ($1)`;
       console.log("user is ", user);
       // And try to get that data
-      const result = await db.query(sqlQuery, [`%${user}%`]);
+      const result = await db.query(sqlQuery, [`%${user.trim()}%`]);
       response.json(result.rows);
     } catch (error) {
       console.error("Error fetching posts:", error);

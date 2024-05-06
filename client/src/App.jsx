@@ -42,5 +42,5 @@ export function App() {
     </>
   );
 }
-export const fetchUrl = "https://teched-week07-project.onrender.com";
-// export const fetchUrl = "http://localhost:8080";
+// export const fetchUrl = "https://teched-week07-project.onrender.com";
+export const fetchUrl = "http://localhost:8080";

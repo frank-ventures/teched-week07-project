@@ -1,31 +1,79 @@
 import { createContext, useState, useEffect } from "react";
 import { fetchUrl } from "./App";
+import { useSearchParams } from "react-router-dom";
 
-const ReviewsContext = createContext();
+export const ReviewsContext = createContext();
 
-export const ReviewsProvider = ({ children }) => {
+export function ReviewsProvider({ children }) {
   const [reviews, setReviews] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [param, setParam] = useState("");
-  const [sort, setSort] = useState("");
+  const [sortBy, setSortBy] = useState("");
 
-  useEffect(() => {
-    getAllReviews();
-  }, []);
+  const [option, setOption] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const sort = searchParams.get("sort") || "";
+  // Form for "search by user"
+  const [form, setForm] = useState("");
+
+  const handleSearch = (event) => {
+    // These next couple of bits allow us to extract the text from the users selection.
+    const selectedIndex = event.target.selectedIndex;
+    console.log(event.target.selectedIndex);
+    setOption(event.target.options[selectedIndex].text);
+    console.log(event.target.options[selectedIndex]);
+    console.log(event.target.options[selectedIndex].text);
+
+    setSearchParams({ sort: event.target.value });
+    console.log("sort has been set to- ", sort);
+  };
+
+  //   useEffect(() => {
+  //     getAllReviews();
+  //   }, []);
 
   async function getAllReviews() {
     setLoading(true);
-    const response = await fetch(`${fetchUrl}/reviews${param}${sort}`);
+    console.log("sort is ", sort);
+    console.log(`${fetchUrl}/reviews?${sortBy}=${sort}`);
+    //Example: http://localhost:8080/reviews?category=5
+    const response = await fetch(`${fetchUrl}/reviews?${sortBy}=${sort}`);
+    const data = await response.json();
+    setReviews(data.reverse());
+    setLoading(false);
+  }
+
+  async function getReviewsByUser() {
+    console.log("getreviewscalled");
+    setLoading(true);
+    const response = await fetch(
+      `${fetchUrl}/reviews?${sortBy}=${form.userSearch}`
+    );
     const data = await response.json();
     setReviews(data.reverse());
     setLoading(false);
   }
 
   return (
-    <ReviewsContext.Provider value={{ reviews, loading, getAllReviews }}>
+    <ReviewsContext.Provider
+      value={{
+        reviews,
+        loading,
+        sort,
+        sortBy,
+        searchParams,
+        option,
+        form,
+        setOption,
+        setLoading,
+        setSortBy,
+        setSearchParams,
+        getAllReviews,
+        handleSearch,
+        getReviewsByUser,
+        setForm
+      }}
+    >
       {children}
     </ReviewsContext.Provider>
   );
-};
-
-export default ReviewsContext;
+}

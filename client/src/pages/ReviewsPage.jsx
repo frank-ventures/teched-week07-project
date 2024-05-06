@@ -2,13 +2,13 @@
 // Import some useful things
 // --- --- --- --- --- --- --- --- --- --- --- ---
 import { useState, useEffect, useContext } from "react";
-import { NavLink, Outlet, useSearchParams } from "react-router-dom";
+import { NavLink, Outlet } from "react-router-dom";
 import "./reviewspage.css";
 import { fetchUrl } from "../App";
 // --- --- --- --- --- --- --- --- --- --- --- ---
 // Context time
 // --- --- --- --- --- --- --- --- --- --- --- ---
-import { ReviewsProvider } from "../Context.jsx";
+import { ReviewsProvider, ReviewsContext } from "../Context.jsx";
 
 // --- --- --- --- --- --- --- --- --- --- --- ---
 // Main Review Page export
@@ -52,7 +52,8 @@ export function ReviewsPage() {
 // --- --- --- --- --- --- --- --- --- --- --- ---
 // Re-usable component to display the reviews returned from the database
 // --- --- --- --- --- --- --- --- --- --- --- ---
-export function ReviewsDisplay({ loading, reviews }) {
+export function ReviewsDisplay() {
+  let { loading, reviews } = useContext(ReviewsContext);
   return (
     <div className="reviews-all-wrapper">
       {loading ? (
@@ -84,21 +85,27 @@ export function ReviewsDisplay({ loading, reviews }) {
 // Component which gets all Reviews, no sort.
 // --- --- --- --- --- --- --- --- --- --- --- ---
 export function ReviewsAll() {
-  const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true);
+  let {
+    getAllReviews,
+    sortBy,
+    setSortBy,
+    setOption,
+    searchParams,
+    setSearchParams,
+    option
+  } = useContext(ReviewsContext);
+
+  useEffect(() => {
+    setSortBy("");
+    setSearchParams("");
+    setOption("");
+  }, []);
 
   useEffect(() => {
     getAllReviews();
-  }, []);
+  }, [sortBy, searchParams, option]);
 
-  async function getAllReviews() {
-    setLoading(true);
-    const response = await fetch(`${fetchUrl}/reviews`);
-    const data = await response.json();
-    setReviews(data.reverse());
-    setLoading(false);
-  }
-  return <ReviewsDisplay loading={loading} reviews={reviews} />;
+  return <ReviewsDisplay />;
 }
 
 // --- --- --- --- --- --- --- --- --- --- --- ---
@@ -106,11 +113,21 @@ export function ReviewsAll() {
 // --- --- --- --- --- --- --- --- --- --- --- ---
 export function ReviewsByCategory() {
   const [categories, setCategories] = useState([]);
-  const [option, setOption] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const sort = searchParams.get("sort");
+  let {
+    getAllReviews,
+    option,
+    sort,
+    setSearchParams,
+    setOption,
+    handleSearch,
+    searchParams,
+    setSortBy
+  } = useContext(ReviewsContext);
 
   useEffect(() => {
+    setSortBy("category");
+    setSearchParams("");
+    setOption("");
     getCategories();
   }, []);
 
@@ -120,36 +137,15 @@ export function ReviewsByCategory() {
     setCategories(data);
   }
 
-  const handleSearch = (event) => {
-    // These next couple of bits allow us to extract the text from the users selection.
-    const selectedIndex = event.target.selectedIndex;
-    console.log(event.target.selectedIndex);
-    setOption(event.target.options[selectedIndex].text);
-    console.log(event.target.options[selectedIndex]);
-    console.log(event.target.options[selectedIndex].text);
-
-    setSearchParams({ sort: event.target.value }, getReviewsByCategory);
-    console.log("sort has been set to- ", sort);
-  };
-
-  const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    getReviewsByCategory();
-  }, [sort]);
-
-  async function getReviewsByCategory() {
-    console.log("getreviewscalled");
-    setLoading(true);
-    const response = await fetch(`${fetchUrl}/reviews?category=${sort}`);
-    const data = await response.json();
-    setReviews(data.reverse());
-    setLoading(false);
-  }
+    getAllReviews();
+  }, [setSortBy, sort]);
 
   return (
     <>
+      {/* --- --- --- --- --- --- --- --- */}
+      {/* This is where we put the drop down box onto the page */}
+      {/* --- --- --- --- --- --- --- --- */}
       <label htmlFor="username">Choose a Category of Reviews: </label>
       <select
         type="select"
@@ -175,7 +171,10 @@ export function ReviewsByCategory() {
       {option != "" ? (
         <>
           <p>{option} reviews.</p>
-          <ReviewsDisplay loading={loading} reviews={reviews} />
+          {/* --- --- --- --- --- --- --- --- */}
+          {/* This is where we put the review results */}
+          {/* --- --- --- --- --- --- --- --- */}
+          <ReviewsDisplay />
         </>
       ) : (
         ""
@@ -189,11 +188,21 @@ export function ReviewsByCategory() {
 // --- --- --- --- --- --- --- --- --- --- --- ---
 export function ReviewsByRelationship() {
   const [relationship, setRelationship] = useState([]);
-  const [option, setOption] = useState([]);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const sort = searchParams.get("sort");
+  let {
+    getAllReviews,
+    option,
+    sort,
+    setSearchParams,
+    setOption,
+    handleSearch,
+    searchParams,
+    setSortBy
+  } = useContext(ReviewsContext);
 
   useEffect(() => {
+    setSortBy("relationship");
+    setSearchParams("");
+    setOption("");
     getRelationship();
   }, []);
 
@@ -203,36 +212,15 @@ export function ReviewsByRelationship() {
     setRelationship(data);
   }
 
-  const handleSearch = (event) => {
-    // These next couple of bits allow us to extract the text from the users selection.
-    const selectedIndex = event.target.selectedIndex;
-    console.log(event.target.selectedIndex);
-    setOption(event.target.options[selectedIndex].text);
-    console.log(event.target.options[selectedIndex]);
-    console.log(event.target.options[selectedIndex].text);
-
-    setSearchParams({ sort: event.target.value }, getReviewsByRelationship);
-    console.log("sort has been set to- ", sort);
-  };
-
-  const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    getReviewsByRelationship();
-  }, [sort]);
-
-  async function getReviewsByRelationship() {
-    console.log("getreviewscalled");
-    setLoading(true);
-    const response = await fetch(`${fetchUrl}/reviews?relationship=${sort}`);
-    const data = await response.json();
-    setReviews(data.reverse());
-    setLoading(false);
-  }
+    getAllReviews();
+  }, [setSortBy, sort]);
 
   return (
     <>
+      {/* --- --- --- --- --- --- --- --- */}
+      {/* This is where we put the drop down box onto the page */}
+      {/* --- --- --- --- --- --- --- --- */}
       <label htmlFor="username">Choose a Relationship to the company: </label>
       <select
         type="select"
@@ -256,7 +244,10 @@ export function ReviewsByRelationship() {
       {option != "" ? (
         <>
           <p>{option} reviews.</p>
-          <ReviewsDisplay loading={loading} reviews={reviews} />
+          {/* --- --- --- --- --- --- --- --- */}
+          {/* This is where we put the review results */}
+          {/* --- --- --- --- --- --- --- --- */}
+          <ReviewsDisplay />
         </>
       ) : (
         ""
@@ -269,9 +260,24 @@ export function ReviewsByRelationship() {
 // Component which gets Reviews by User.
 // --- --- --- --- --- --- --- --- --- --- --- ---
 export function ReviewsByUser() {
-  const [reviews, setReviews] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [form, setForm] = useState("");
+  let {
+    setSearchParams,
+    setOption,
+    sort,
+    setSortBy,
+    getReviewsByUser,
+    form,
+    setForm,
+    searchParams,
+    option
+  } = useContext(ReviewsContext);
+
+  useEffect(() => {
+    setSortBy("user");
+    setSearchParams("");
+    setOption("");
+    setForm({ ...form, userSearch: null });
+  }, []);
 
   function handleChange(event) {
     setForm({ ...form, [event.target.name]: event.target.value });
@@ -279,24 +285,14 @@ export function ReviewsByUser() {
 
   useEffect(() => {
     getReviewsByUser();
-  }, [form]);
-
-  async function getReviewsByUser() {
-    console.log("getreviewscalled");
-    setLoading(true);
-    const response = await fetch(`${fetchUrl}/reviews?user=${form.userSearch}`);
-    const data = await response.json();
-    setReviews(data.reverse());
-    setLoading(false);
-  }
+  }, [form, setForm, setSortBy, sort, searchParams, option]);
 
   return (
     <>
       <label htmlFor="userSearch">Enter a name</label>
       <input name="userSearch" type="text" onChange={handleChange} />
       <p>You&apos;ve searched for: {form.userSearch}</p>
-      {console.log(form.userSearch)}
-      <ReviewsDisplay loading={loading} reviews={reviews} />
+      <ReviewsDisplay />
     </>
   );
 }
