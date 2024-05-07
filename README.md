@@ -4,6 +4,8 @@
 
 **Link to project:** [Vercel link](https://tech-ed-reviews.vercel.app/)
 
+![the finished project](readme-images/Finished-Project.png)
+
 This week we extended our React knowledge, and brought back databases with Postgres.
 The task was to build a full-stack app, where a dynamic webpage could interact with data stored elsewhere.
 
