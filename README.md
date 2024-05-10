@@ -14,7 +14,7 @@ I kept track of my ideas, planning and progress here: [Planning](https://frankjs
 ### Requirements & Deliverables
 
 - Have a Database, a Server and a Client.
-- Design databse schema.
+- Design database schema.
 - Seed the database with data.
 - Create Express endpoints.
 - Create multiple pages with React Router.
